@@ -1,0 +1,16 @@
+---
+title: "Assignment1a-Background"
+author: "Elmera Azadpour"
+date: "2/8/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Why are you taking this course?
+I'm taking this course to enhance my data science skills and knowledge. One of the main reasons that attracted me to the Bren program was the ability to take lots of data science courses in the program. Though I wish the data science focus was still around, I'm still excited to be able to take courses like this and build on my R skills to hopefully use later in my career once I graduate from Bren.
+
+## Elmera's data science background
+I was exposed to R pretty early in my undergrad career once I decided I wanted to take up a research project. My PI, Dr. Diane Pataki, introduced me to her PhD student who aided in helping me learn the ropes of R. However, I was really expected to figure most of it out on my own, digging through Stack Overflow forums and googling most my questions. I worked mostly on data visualizations, statistical analyses and data wranglinging. I later went on to intern at Berkeley National Lab with Dr. Trevor Keenan and later Dr. Lara Kueppers where I was exposed to even more data science work. I was able to work on larger dataset analyses and fine tune my skills. Now here at Bren, I have taken Allison's 206 course and I am now currently taking 244. I've really enjoyed both classes and I am looking forward to this one as well! 
