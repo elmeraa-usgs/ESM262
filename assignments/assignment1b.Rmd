@@ -1,0 +1,47 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+title: "Assignment 1b"
+---
+<style type="text/css">
+
+body, td {
+   font-size: 16px;
+}
+code.r{
+  font-size: 12px;
+}
+pre {
+  font-size: 12px
+}
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+
+
+
+```
+
+## <span style="color: blue;">1. Modularity - To Submit</span>
+
+
+With your group, think of an example program that you might want to design that is complex enough to involve several modules
+
+* write a contract for the overall program (input, output, parameters)
+* break the program in to modules (naming them appropriately), wrate a contract for each one
+* create a diagram that shows how these modules would be put together to go from inputs to output for the overall program (you can use whatever tools you like to create this)
+
+* summarize this in an Rmarkdown document
+
+* create a repository for your group (or you can select a group member and use their group repository)
+
+-  <span style="color: maroon;">Add the link to your remote repository and name of this Rmarkdown file on Gauchospace as GROUP submission for Assignment 1b </span>
+
+## <span style="color: blue;">2. Review  </span>
+
+- Review **starting_functions.Rmd** note any questions to ask in class
+- I will also go through in a short video - so if its challenging for you review the video **starting_functions_lecture.mov**
+

@@ -1,0 +1,27 @@
+---
+title: "Assignment 2b"
+author: "Elmera Azadpour"
+date: "2/22/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(purrr)
+library(ggpubr)
+library(here)
+```
+
+```{r}
+# generate a structure to store info on our possible cars
+possible_cars_new = data.frame(name = c("A","B","C", "D"),mass=c(10000,65000,38000, 30000), area = c(22,30,22, 10))
+```
+
+```{r}
+# create a random sample of 100 highways each with a different rolling coefficient: sample the rolling coefficients from a uniform distribution with a minimum value of 0.01 and a maximum value of 0.03, sample 100 different highways
+
+nsample_new = 100
+rolling_c = rnorm(mean=25, sd=4, n=nsample)
+```
+

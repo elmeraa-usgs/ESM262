@@ -1,0 +1,113 @@
+---
+title: "GroupGAssignment2B"
+author: "Simone Albuquerque"
+date: "2/22/2021"
+output: html_document
+---
+
+```{r Load Packages}
+library(tidyverse)
+library(ggplot2)
+```
+
+```{r load function and create results table}
+#call in auto power function
+source("auto_power.R")
+#generate samples from distribution 
+nsample = 100
+speeds = rnorm(mean = 25, sd = 4, n=nsample)
+```
+
+
+```{r results if speed changes and car mass and area is constant}
+#create dataframe to store results
+results = data.frame(speed = speeds, power = NA)
+head(results)
+#create column with results
+#simple since only one variable, V is changing
+results$power = auto_pwr(V=speeds, A=25, m=20000)
+#visualize in graph 
+ggplot(results, aes(speed, power/1000))+
+  geom_point()+
+  labs(x = "speed m/s", y = "power kW")
+ggplot(results, aes(x = "Across Speed", y = power/1000))+ geom_boxplot()+ labs( y = "power kW")
+```
+
+
+```{r Create Inputs Possible Cars with mean speed}
+# create df there are multiple cars with unique mass and areas
+#car A mass = 20000kg, area 22m^2^
+#car B mass = 65000 kg, area 30m^2^
+#car C mass 38000 kg, area 22m^2^
+# car D mass = 30000 kg, area - 10 m^2^
+#mean highway speed = 100 km/hr ***convert to km/s***
+speed_base = 100*.28
+#since we want only 1 variable to change in this example
+#generate inputs dataframe
+possible_cars = data.frame(name = c("A", "B", "C", "D"),mass =  c(10000, 65000, 38000,30000), area = c(22, 30, 22, 10))
+head(possible_cars)
+#generate results dataframe
+possible_cars$power = auto_pwr(V = speed_base, A = possible_cars$area, m = possible_cars$mass)
+#visualize in graph
+ggplot(possible_cars, aes(x = mass, y = power, fill = as.factor(area)))+
+  geom_col()+
+  labs(y = "Power W", x = "Mass (kg)")
+```
+
+
+
+```{r Random Sample of 100 highways with different conditions}
+#Total power consumed if there were 100 cars on this highway each hour, traveling at a range of speeds, mean 100 km/hr and are log distributed
+```
+
+
+
+
+
+
+## Elmera: using pmap functionality
+```{r}
+#call in auto power function
+source("auto_pwr.R")
+#generate samples from distribution 
+nsample = 100
+speeds = rnorm(mean = 25, sd = 4, n=nsample)
+
+#mean highway speed = 120 km/hr ***convert to km/s***
+speed_base = 120*.28
+
+possible_cars = data.frame(name = c("A", "B", "C", "D"),mass =  c(10000, 65000, 38000,30000), area = c(22, 30, 22, 10))
+
+possible_cars$power = auto_pwr(V = speed_base, A = possible_cars$area, m = possible_cars$mass)
+
+# show results                         
+ggplot(possible_cars, aes(x=mass, y=power, fill=as.factor(area)))+
+  geom_col()+
+  labs(y="Power W", x="Mass (kg)")
+
+## build highway w pmap
+nsample = 100
+mean_speed = log(120*0.277)
+speeds = rlnorm(mean=mean_speed, sd=0.1*mean_speed, nsample)
+#summary(speeds)
+
+
+powerall2 = pmap(list(A = possible_cars$area, m=possible_cars$mass), auto_pwr, V=speeds)
+powerall2 = as.data.frame(powerall2, col.names=possible_cars$name)
+powerall2b = mapply(FUN=auto_pwr, A = possible_cars$area, m=possible_cars$mass, MoreArgs = list(V=speeds))
+colnames(powerall2b)=possible_cars$name  #add column names
+
+head(powerall2b)
+head(powerall2)
+
+# for plotting sometimes its useful to turn columns in to rows
+powerallr2 = powerall2 %>% pivot_longer(cols=everything(), names_to="car", values_to="power")
+#head(powerallr2)
+
+# quick visualization
+method2_plot = ggplot(powerallr2, aes(car,power, fill=car))+
+  geom_boxplot()+
+  ggtitle("pmap")
+method2_plot
+```
+

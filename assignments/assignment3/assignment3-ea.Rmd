@@ -1,0 +1,106 @@
+---
+title: "Assignment3: energy of a photon"
+author: "Elmera Azadpour"
+date: "2/25/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(here)
+library(tidyr)
+```
+
+```{r}
+# write a function to compute population growth
+source(here("assignments","assignment3","popgrowth.R"))
+growth
+growth(p0=20, r= 0.15, t = 10)
+
+
+#generate some input
+change_year = c(10, 13, 35, 68)
+rate = seq(from=0.01, to=0.50, by=0.01)
+p0=50
+
+
+# first generate a dataframe to store results
+pop = as.data.frame(matrix(nrow=length(change_year), ncol=length(rate)))
+
+# now use a for loop to populate
+ for (i in 1:length(change_year)) {
+         for (j in 1:length(rate)) {
+       pop[i,j]= growth(t=change_year[i],       
+                         r=rate[j],p0=p0 )
+
+         }
+ }
+head(pop)
+ 
+ 
+#some data wrangling
+colnames(pop)= rate
+rownames(pop)= change_year
+#View(pop)
+
+pop_pivot = pop %>% 
+  pivot_longer(cols=1:50, names_to="growthrate", values_to="totalpop")
+
+ggplot(pop_pivot, aes(x=growthrate, y=totalpop))+
+  geom_point()
+
+```
+
+
+
+## create a while loop
+```{r}
+# initial conditions
+yr=1
+p0 = 10
+
+# loop
+while ((p0 < 1000) &&(yr < 1000))  { # two conditions
+  
+p0 = p0 + 0.01* p0 # increase population rate by 1% each year
+# keep track of time
+yr = yr + 1
+}
+
+p0
+yr # around 464 years 
+
+```
+
+case-when
+```{r}
+source(here("assignments","assignment3","popgrowth-casewhen.R"))
+
+# generate some data to try the function
+p0 = runif(min=1, max=1000, n=30)
+r = runif(min=0.01, max=0.75, n=30)
+t = runif(min=1, max=30, n=30)
+#head(t)
+# try it
+growth(p0=p0, r=r, t=t)
+# med conidtions 
+
+# lets pick some numbers we know whould give us a low conidtion
+p0 = runif(min=0, max=10, n=30)
+r = runif(min=0.01, max=0.05, n=30)
+t = runif(min=1, max=30, n=30)
+growth(p0=p0, r=r, t=t)
+# low conidtions 
+
+# now try high
+# use repeat to generate the same value multiple times
+p0 = rep(1500, times=30)
+r = rep(0.45, times=30)
+t = rep(30, times = 30)
+growth(p0=p0, r=r, t=t)
+# high conditions
+
+
+```
+
