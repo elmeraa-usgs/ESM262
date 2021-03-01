@@ -42,10 +42,11 @@ head(pop)
 #some data wrangling
 colnames(pop)= rate
 rownames(pop)= change_year
-#View(pop)
+View(pop)
 
 pop_pivot = pop %>% 
   pivot_longer(cols=1:50, names_to="growthrate", values_to="totalpop")
+head(pop_pivot)
 
 ggplot(pop_pivot, aes(x=growthrate, y=totalpop))+
   geom_point()
@@ -86,7 +87,7 @@ t = runif(min=1, max=30, n=30)
 growth(p0=p0, r=r, t=t)
 # med conidtions 
 
-# lets pick some numbers we know whould give us a low conidtion
+# lets pick some numbers we know would give us a low conidtion
 p0 = runif(min=0, max=10, n=30)
 r = runif(min=0.01, max=0.05, n=30)
 t = runif(min=1, max=30, n=30)

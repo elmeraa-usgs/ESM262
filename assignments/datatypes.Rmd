@@ -114,6 +114,9 @@ ggplot(data.frame(catch1=catch1), aes(catch1, fill=catch1))+geom_histogram(stat=
 
 # you can also add numbers to the string
 plottitle=sprintf("We mostly caught %s \n max catch(%d)", names(which.max(summary(catch1))), max(summary(catch1)))
+# \n = new line 
+#%s = string for name
+#%d = integer value
 ggplot(data.frame(catch1=catch1), aes(catch1, fill=catch1))+geom_histogram(stat="count")+labs(title=plottitle)
 
 #How do you figure out the rarest fish in our simulated ocean
@@ -128,7 +131,7 @@ some useful syntax if you want to generate strings
 * **%s** replace with a string
 * **%d** replace with an integer value
 * **%f** replace with a real value
-* **%4.1f** replace with a real value with 4 digist, two after decimal
+* **%4.1f** replace with a real value with 4 digits, two after decimal
 * **\\n** add a line return
 
 Try it
@@ -208,13 +211,13 @@ In R, to do this we use LISTS
 sale = list(id=2, quality="high", contents=c("apple","cherry"), cost=c(4,5))
 sale
 
-#ways to access elements
+#ways to access elements, similar to dataframes 
 sale$id
 sale$what
 
 # you can also access by list item number
 # the [x] denotes the xth item in the list
-sale[[3]]
+sale[[3]] ## 3rd item in list is contents
 sale[["contents"]]
 
 
@@ -272,6 +275,11 @@ res[["call"]]
 
 
 ```
+
+```{r}
+graph = ggplot(sage_wy, aes(wy, tavg)) + geom_line()
+```
+
 
 # Using lists to return multiple items from a function
 
