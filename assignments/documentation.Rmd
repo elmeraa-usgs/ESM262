@@ -1,0 +1,99 @@
+---
+title: 'Documentation'
+author: "Elmera Azadpour"
+date: "January, 2020"
+output:
+  slidy_presentation:
+   highlight: pygments
+  html_document: default
+  pdf_document: default
+  ioslides_presentation:
+    highlight: pygments
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo =TRUE)
+knitr::opts_chunk$set(error=TRUE)
+#knitr::opts_knit$set(root.dir = '/Users/christina/Desktop/Courses.local/ESM262n/docs/packages')
+library(tidyverse)
+library(devtools)
+#library(roxygen2)
+
+```
+
+
+
+# <span style="color:orange">Making your own packages</span>
+
+You package has directory structure that looks something like this
+
+R Package Directory ![](Rdirstruct.jpeg)
+
+You R function will be stored in the **R** subdirectory
+IF **man** and **data**, **tests** subdirectories are not created - created them
+
+This package (e.g **rainbow**)  directory structures  store your code and documentation; that is easy for R to read. It include
+
+* A file DESCRIPTION with descriptions of the package, author, and license conditions
+* A man/ subdirectory of documentation files.
+* An R/ subdirectory of R code.
+* A data/ subdirectory of datasets.
+
+
+  
+# <span style="color:orange">Documentation</span>
+
+ 
+* There is a standard format for documentation that can be read by automatic programs (roxygen2) - an R package that generate “standard” R documentation - manual or help pages
+
+* These automated approaches for building documentation (like roxygen2) and meta data (descriptions of data sets) are increasingly common - so you should get into the practice of being structured in your approach to documentation
+
+* We will use the conventions that work with roxygen2 - and then use this program to generate formal R documentation. Roxygen is similar to Doxygen which is used for C code…so its a widely used format
+
+Documentation is placed at the top of the *something.R* file
+all lines start with *\#\'*
+
+# Here's an example
+
+Documentation example ![](doc.exam.jpeg)
+
+# Three Parts to R documentation\
+
+* **Description** - summary of what your model/function does
+
+* **Tagged (using special “key” words)**
+
+Here are some examples there are many others
+
+* *\@param*  inputs/parameter description
+* *\@return* what your function returns (outputs)
+* *\@example*  how to use it
+* *\@references*  citations or urls
+* *\@author* YOU
+
+(you don’t need all of these and there are more tags, but start with at least param and return, example is a good idea
+
+* **Within function** Any use of # within the body of the function (this does not get used in the Help)
+
+# <span style="color:orange">Creating Help Pages</span>
+
+If you use this approach then *roxygen* can generate help pages  - here are the steps
+
+* Add the documentation information as described above to your function
+
+* Save your function, make sure that it is in the  *R\/* subdirectory your project directory
+eg *rainbow/R/
+
+* Set your working directory to your project directory
+
+* Make sure you've run *library(roxygen2)*
+
+* Run *document* from Rstudio drop down menu or *document()* from command line  - this will create documentation for ANY of the *.R files you have in the R directory (you can have many of them)
+
+* try  *help(test.R)* to see the results
+
+* you don't have to re-run document the next time your run R,  to load (used when you have project and are developing your new package), if it is another package this will be part of the install
+
+* if you change one of your R functons or the documentation, you need to build and re-load
+
+* try adding another small function - something simple with documentation

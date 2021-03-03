@@ -1,0 +1,243 @@
+---
+title: 'Introduction to Packages'
+author: "Naomi Tague"
+date: "January, 2020"
+output:
+  slidy_presentation:
+   highlight: pygments
+  html_document: default
+  pdf_document: default
+  ioslides_presentation:
+    highlight: pygments
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo =TRUE)
+knitr::opts_chunk$set(error=TRUE)
+#knitr::opts_knit$set(root.dir = '/Users/christina/Desktop/Courses.local/ESM262n/docs/packages')
+library(tidyverse)
+library(devtools)
+library(roxygen2)
+
+```
+
+
+# <span style="color:orange">MODULAR PROGRAMMING</span>
+
+* Modular Programming = breaking a big task into chunks
+
+Why?
+
+* easier to debug (find and correct mistakes)
+* easier to re-use parts of the code
+* easier to make changes
+
+All programming languages haves ways to develop modules (*functions*)
+
+
+# <span style="color:orange">MODULAR PROGRAMMING</span>
+
+A program combines
+
+* a controlling program that takes you through the steps required in some data science task
+* modules that are "called" by the controlling program to perform specific tasks
+* ideally modules are designed so that they can be used by many programs
+
+The controlling program
+* is called *main* in some (but not all languages)
+
+* in R, the modules are organized in *packages*
+  * collections of *functions*
+  
+* we use *Rscript* or *RMarkdown* for the controlling program
+
+# <span style="color:orange">OUTLINE/FLOWCHART</span>
+
+Modular programming starts with a diagram of your program
+
+What are the tasks (*functions*) and what is the relationship
+between them (steps, workflow, main program)
+
+# <span style="color:orange">OUTLINE/FLOWCHART</span>
+
+![simple flow chart](simple_flowchart.jpg)
+
+
+# <span style="color:orange">PACKAGES in R</span>
+
+## <span style="color:orange">Definitions</span>
+
+* **Package**: An extension of the R base system with functions, data and documentation in standardized
+format.
+* **Library**: A directory containing installed packages.
+* **Repository**: A website providing packages for installation.
+* **Source**: The original version of a package with human-readable text and code.
+* **Binary**: A compiled version of a package with computer-readable text and code, may work only
+on a specic platform.
+* **Base packages**: Part of the R source tree, maintained by R Core.
+* **Recommended packages**: Part of every R installation, but not necessarily maintained by R
+Core.
+* **Contributed packages**: All the rest. This does not mean that these packages are necessarily of
+lesser quality than the above, e.g., many contributed packages on CRAN are written and
+maintained by R Core members. They simply try to keep the base distribution as lean as
+possible.
+* **User packages**: Packages that you write, share with a smaller community - not downloadable
+from CRAN, but can be downloaded (or sent as a zip file) and loaded into R
+
+# <span style="color:orange">Why make packages</span>
+
+* to easily share functions and data with others with R-specific documentation
+
+* have a set of tools (functions) that you often use, that can be easily loaded
+
+* be part of the R community
+
+
+# <span style="color:orange">Making your own packages</span>
+
+First lets review the format for writing functions
+
+* documentation (we will say more on this later)
+
+* function definition
+
+* named **something.R**
+
+* don't' have ANYTHING else in your **something.R** file
+
+* Make sure you have version control set up to work with R  
+
+#  <span style="color:orange">Installing User Packages</span>
+* looks similar to CRAN packages
+
+* uncompiled (they can be compiled but not always) so  you can **see** the code
+
+You can load my package *rainbow* by 
+
+  * downloading *rainbow.tar.gz *
+    * DON'T UNZIP
+  
+  * install from a *package archive*
+  
+  
+ Alternatively you can install from *github* - you need the *devtools* library to do this
+ 
+ install_github("naomitague/rainbow")
+
+
+Use of spring.summary
+```{r packageapp, eval=FALSE}
+
+ install_github("naomitague/rainbow")
+# load "stuff" in your package including R
+library(rainbow)
+
+
+# notice
+help(compute_NPV)
+help(spring_summary)
+
+```
+# <span style="color:orange">Steps for starting a package</span>
+
+
+* Think of a name for your package, it should be descriptive of the many related functions that you will store there
+      * mine will be **rainbow**
+
+* Create repository for this package on **git**
+
+* Back in Rstudio,
+  
+  * Install libraries **devtools** from CRAN
+
+  * start a new project, using the same name for the project as your package name
+  
+    * choose the option in package creation to **create a package**
+    
+    * make sure that the **path** to this directory is not in the course directory, or other directory that is 
+already under version control (git)
+
+    * link to your existing Github repository
+    
+* If you already have an R function you can add it here
+  * make sure your function is named **something.R** and follows the format for functions that we have been using 
+  * try adding one of the functions that you created to compute diversity
+  
+
+
+# <span style="color:orange">Making your own packages</span>
+
+You will notice that this creates a directory structure that looks something like this
+
+R Package Directory ![](Rdirstruct.jpeg)
+
+Your R function will be stored in the **R** subdirectory
+IF **man** and **data**, **tests** subdirectories are not created - created them
+
+This package (e.g **rainbow**)  directory structures  store your code and documentation; that is easy for R to read. It include
+
+* A file DESCRIPTION with descriptions of the package, author, and license conditions
+* A man/ subdirectory of documentation files.
+* An R/ subdirectory of R code.
+* A data/ subdirectory of datasets.
+
+# Working with yor package
+
+# <span style="color:orange">How to work on your package</span>
+
+Make a change to your R function, save it, then re-install  using either:
+
+  * *Build* - *Build and Reload* from menu
+  
+  * *load_all()* command from command line
+
+This will Load your functions in your package that is under-development
+
+You can edit DESCRIPTION to add useful information particularly if you are going to share this package
+
+It is useful to keep an Rmarkdown file or R script that lets you run your function - while you are working this should be stored *outside* of the package directory
+
+
+I'll follow with my  **rainbow** package
+
+
+
+Try this:
+   * create a Rmarkdown file that you will use for using functions in your package
+   * save it in a directory above where you are creating your package
+   * in the Rmarkdown, provide code to generate some sample data, save it and read it in and apply your function to this data
+   
+   
+#  How to to link back to Github (Just in case you didn't do this at the beginning)
+
+* On *Github* create a new repository if you didn't create one above
+
+* Back in Rstudio, in your project, in a *shell* window in your R studio, do the following
+
+* make sure you are in the project directory (*pwd*)
+* execute the following command
+
+ *git remote add origin 'http link from git' * 
+ 
+ then
+ 
+ * *git pull origin master*
+ 
+ * *git push -u origin master*
+ 
+ Now your Project is linked with github and you can push/pull changes to github repo (when you are ready)
+ Keep in mind that you can work locally to *play*
+ 
+ Two setps to send stuff to github repo
+ 
+ * commit locally
+ 
+ * push to git hub
+ 
+ * if you are collaborating or working on different machines its also good to pull regularly
+ 
+ 
+ 
+
+
+  
